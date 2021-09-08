@@ -4,7 +4,7 @@ Detecção de picos de sinal em dados de série temporal em tempo real
 
 ## Utilities
 
-### [awesome-micropython](https://github.com/mcauser/awesome-micropython)
+### Peak Detection(RT)
 
 + [Peak signal detection in realtime timeseries data](https://qastack.com.br/programming/22583391/peak-signal-detection-in-realtime-timeseries-data) - stackoverflow
 + [Peak signal detection in realtime timeseries data](https://stackoverflow.com/questions/22583391/peak-signal-detection-in-realtime-timeseries-data/) - qastack
@@ -28,3 +28,5 @@ Detecção de picos de sinal em dados de série temporal em tempo real
 - G. H. Palshikar in Simple Algorithms for Peak Detection in Time-Series - no link
 
 - Kalman filter - no link
+
+### [awesome-micropython](https://github.com/mcauser/awesome-micropython)
