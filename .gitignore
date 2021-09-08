@@ -1,13 +1,26 @@
 .gitignore
 .env
 .DS_Store
-88CODIGOS_20200902.md
 .error
 
 # VIM: Temperory files
 *~
 .*.swp
 .*.swo
+
+# VIM: Swap-files
+[._]*.s[a-w][a-z]
+[._]s[a-w][a-z]
+
+# VIM: Commands :cs, :ctags
+tags
+cscope.*
+
+# VIM session
+Session.vim
+
+# VIM: netrw.vim: Network oriented reading, writing, browsing (eg: ftp scp)
+.netrwhist
 
 bin
 include
