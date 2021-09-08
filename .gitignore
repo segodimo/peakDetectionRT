@@ -1,0 +1,14 @@
+.env
+.DS_Store
+88CODIGOS_20200902.md
+.error
+
+# VIM: Temperory files
+*~
+.*.swp
+.*.swo
+
+bin
+include
+lib
+pyvenv.cfg
