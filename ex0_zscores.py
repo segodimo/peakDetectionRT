@@ -1,8 +1,8 @@
 import time
-from rt_z_scoresESP32 import real_time_peak_detection
+from rt_z_scores import real_time_peak_detection
 
 
-lag = 20
+lag = 30
 threshold = 4
 influence = 0
 
@@ -24,6 +24,7 @@ y = [
         4,3,3.2,2,1,1,0.8,4,4,2,
         2.5,1,1,1
     ]
+
 
 rtpd = real_time_peak_detection(arrini, lag, threshold, influence)
 

@@ -26,3 +26,6 @@ bin
 include
 lib
 pyvenv.cfg
+
+.vscode/
+__pycache__/
