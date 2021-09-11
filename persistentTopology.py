@@ -10,7 +10,8 @@ def get_persistent_homology(seq):
     peaks = []
     # Maps indices to peaks
     idxtopeak = [None for s in seq]
-    # Sequence indices sorted by values
+    # Sequence indices sorted by value
+    # ordena los indicies deacuerdo donde encuentra el mayor pico
     indices = range(len(seq))
     indices = sorted(indices, key = lambda i: seq[i], reverse=True)
 
@@ -49,7 +50,8 @@ def get_persistent_homology(seq):
                 idxtopeak[peaks[ir].left] = idxtopeak[idx] = ir
 
     # This is optional convenience
-    return sorted(peaks, key=lambda p: p.get_persistence(seq), reverse=True)
+    res = sorted(peaks, key=lambda p: p.get_persistence(seq), reverse=True)
+    return res
 
 
 
