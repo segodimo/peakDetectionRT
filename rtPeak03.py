@@ -23,19 +23,19 @@ def stdev(data, xbar=None):
 
 #----------------------------------------------
     
-def peakDetect(y,ysm,t,dt,base,threshold,rms):
-    avgy = mean(ysm)
-    stdy = stdev(ysm)
+def peakDetect(y,t,dt,base,threshold):
+    avgy = mean(y)
+    stdy = stdev(y)
     lmx = avgy+stdy
     lmn = avgy-stdy
+    th = (lmx * threshold)/100
     #lrms = rms*54.5
-    lrms = rms+base
     #if y[t] >= (avgy+stdy):
-    if y[t] >= lmx:
+    if y[t] >= lmx+th:
         pd1 = y[t]
     else:
         pd1 = base
-    return pd1,avgy,lmx,lmn,lrms
+    return pd1,avgy,lmx,lmn,th+lmx
     #return y[t], ysm[t], avgy, avgy+stdy
     # if y[t] >= 2900:
     #     if (y[t] - y[t-dt] > threshold) and (y[t] - y[t+dt] > threshold):
@@ -45,22 +45,6 @@ def peakDetect(y,ysm,t,dt,base,threshold,rms):
     #         return pk
     # else:
     #    return 2000
-
-def smooth(y):
-    ysm = [ ((y[i]+y[i+1])/2) for i in range(len(y)-1)]
-    # ysm = []
-    # for i in range(len(y)-1):
-    #     my = (y[i]+y[i+1])/2
-    #     ysm.append(my)
-    return ysm
-
-def yrms(y):
-    ms = 0
-    for i in range(len(y)):
-        ms = ms + y[i]^2
-    ms = ms / len(y) 
-    rms = math.sqrt(ms)
-    return rms
 #----------------------------------------------
     
 class rtPeak:
@@ -71,6 +55,8 @@ class rtPeak:
         self.dt = dt # dt < t VALIDAR!!!
         self.base = base
         self.threshold = threshold
+        self.pk = base
+
 
     def runPD(self, yrt):
         if len(self.y) < self.lny+1:
@@ -80,10 +66,16 @@ class rtPeak:
             self.y.append(yrt)
             self.y.pop(0)
             #------------------------
-            ysm = smooth(self.y)
-            rms = yrms(self.y)
+            #ysm = [ ((self.y[i]+self.y[i+1])/2) for i in range(len(self.y)-1)]
             #------------------------
-            pk = peakDetect(self.y,ysm,self.t,self.dt,self.base,self.threshold,rms)
+            pk = peakDetect(
+                self.y,
+                #ysm,
+                self.t,
+                self.dt,
+                self.base,
+                self.threshold,
+                )
             return (self.y[self.t],pk)
             #------------------------ 
 
