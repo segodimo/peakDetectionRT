@@ -23,14 +23,19 @@ def stdev(data, xbar=None):
 
 #----------------------------------------------
     
-def peakDetect(y,ysm,t,dt,base,threshold):
+def peakDetect(y,ysm,t,dt,base,threshold,rms):
     avgy = mean(ysm)
     stdy = stdev(ysm)
-    if y[t] >= (avgy+stdy) and (avgy+stdy) > 2840:
+    lmx = avgy+stdy
+    lmn = avgy-stdy
+    #lrms = rms*54.5
+    lrms = rms+base
+    #if y[t] >= (avgy+stdy):
+    if y[t] >= lmx:
         pd1 = y[t]
     else:
         pd1 = base
-    return (avgy+stdy),pd1,avgy
+    return pd1,avgy,lmx,lmn,lrms
     #return y[t], ysm[t], avgy, avgy+stdy
     # if y[t] >= 2900:
     #     if (y[t] - y[t-dt] > threshold) and (y[t] - y[t+dt] > threshold):
@@ -42,12 +47,20 @@ def peakDetect(y,ysm,t,dt,base,threshold):
     #    return 2000
 
 def smooth(y):
-    # ysm = []
     ysm = [ ((y[i]+y[i+1])/2) for i in range(len(y)-1)]
+    # ysm = []
     # for i in range(len(y)-1):
     #     my = (y[i]+y[i+1])/2
     #     ysm.append(my)
     return ysm
+
+def yrms(y):
+    ms = 0
+    for i in range(len(y)):
+        ms = ms + y[i]^2
+    ms = ms / len(y) 
+    rms = math.sqrt(ms)
+    return rms
 #----------------------------------------------
     
 class rtPeak:
@@ -68,10 +81,11 @@ class rtPeak:
             self.y.pop(0)
             #------------------------
             ysm = smooth(self.y)
+            rms = yrms(self.y)
             #------------------------
-            pk = peakDetect(self.y,ysm,self.t,self.dt,self.base,self.threshold)
+            pk = peakDetect(self.y,ysm,self.t,self.dt,self.base,self.threshold,rms)
             return (self.y[self.t],pk)
-            #------------------------
+            #------------------------ 
 
 
 

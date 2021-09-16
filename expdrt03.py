@@ -57,7 +57,7 @@ tms=100
 # threshold = 300
 # p1 = rtPeak(lny, dt, base, threshold)
 
-pkp1 = rtPeak(3, 1, 2800, 50)
+pkp1 = rtPeak(5, 2, 2800, 50)
 
 num = 0
 while num < len(arry):
