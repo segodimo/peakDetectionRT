@@ -23,22 +23,22 @@ def stdev(data, xbar=None):
 
 #----------------------------------------------
     
-def peakDetect(y,t,dt,base,threshold):
+def peakDetect(y,t,dt,base,thd):
     avgy = mean(y)
     stdy = stdev(y)
     lmx = avgy+stdy
     lmn = avgy-stdy
-    th = (lmx * threshold)/100
+    th = (lmx * thd/10000)+lmx
     #lrms = rms*54.5
     #if y[t] >= (avgy+stdy):
-    if y[t] >= lmx+th:
+    if y[t] >= th:
         pd1 = y[t]
     else:
         pd1 = base
-    return pd1,avgy,lmx,lmn,th+lmx
+    return pd1,avgy,lmx,lmn,th
     #return y[t], ysm[t], avgy, avgy+stdy
     # if y[t] >= 2900:
-    #     if (y[t] - y[t-dt] > threshold) and (y[t] - y[t+dt] > threshold):
+    #     if (y[t] - y[t-dt] > thd) and (y[t] - y[t+dt] > thd):
     #         return 5000 if y[t] >= 3700 else 4000
     #     else:
     #         pk = base
@@ -48,13 +48,13 @@ def peakDetect(y,t,dt,base,threshold):
 #----------------------------------------------
     
 class rtPeak:
-    def __init__(self, lny, dt, base, threshold):
+    def __init__(self, lny, dt, base, thd):
         self.y = []
         self.lny = lny #num impar VALIDAR!!!
         self.t = int(math.ceil(lny/2))-1
         self.dt = dt # dt < t VALIDAR!!!
         self.base = base
-        self.threshold = threshold
+        self.thd = thd
         self.pk = base
 
 
@@ -74,7 +74,7 @@ class rtPeak:
                 self.t,
                 self.dt,
                 self.base,
-                self.threshold,
+                self.thd,
                 )
             return (self.y[self.t],pk)
             #------------------------ 
