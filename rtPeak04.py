@@ -1,5 +1,4 @@
 import math
-import numpy as np
 
 def float_list(list):
     floatList = [float(i) for i in list]

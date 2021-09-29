@@ -1,5 +1,5 @@
 import time
-from rtPeak04 import rtPeak
+from rtPeak05 import rtPeak
 
 arry = [
   2818,2821,2817,2823,2821,2817,2816,2818,2819,2817,
@@ -54,9 +54,9 @@ tms=100
 # dt=4 # dt < t VALIDAR!!!
 # base=3000
 # m = 300
-# p1 = rtPeak(lny, dt, base, m)
+# p1 = rtPeak(lny, dt, base, thd)
 
-pkp1 = rtPeak(9, 4, 2800, 50)
+pkp1 = rtPeak(9, 4, 2800, 0.1)
 
 num = 0
 while num < len(arry):
